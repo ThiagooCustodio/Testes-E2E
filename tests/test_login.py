@@ -37,20 +37,3 @@ def test_login_sucesso(driver):
     )
 
     assert logout.is_displayed()
-
-
-#    perfil = WebDriverWait(driver, 20).until(
-#        EC.element_to_be_clickable(
-#            (By.CSS_SELECTOR, ".b3xqm ._voBV")
-#        )
-#    )
-
-#    perfil.click()
-
-#    logout = WebDriverWait(driver, 20).until(
-#        EC.presence_of_element_located(
-#            (By.ID, "logout")
-#        )
-#    )
-
-#    assert logout.is_displayed()
