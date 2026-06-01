@@ -12,8 +12,8 @@ class HomePage(BasePage):
     )
 
     BTN_LOGIN = (
-        By.CSS_SELECTOR,
-        ".ELJjw:nth-child(1)"
+        By.XPATH,
+        "//button[.//span[contains(text(),'Entrar ou criar conta')]]"
     )
 
     def abrir(self):
@@ -23,4 +23,10 @@ class HomePage(BasePage):
         self.click(self.BTN_CADASTRO)
 
     def acessar_login(self):
-        self.click(self.BTN_LOGIN)
+
+        botao = self.driver.find_element(*self.BTN_LOGIN)
+
+        self.driver.execute_script(
+            "arguments[0].click();",
+            botao
+        )
