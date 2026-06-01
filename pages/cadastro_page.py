@@ -1,36 +1,52 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from pages.base_page import BasePage
 
-# Abre Firefox
-driver = webdriver.Firefox()
 
-# Acessa o site
-driver.get("https://www.estado.rs.gov.br/inicial")
+class CadastroPage(BasePage):
 
-# Procura o link Notícias e salva na variável
-link_noticias = WebDriverWait(driver, 10).until(
-    EC.element_to_be_clickable(
-        (By.PARTIAL_LINK_TEXT, "Notícias")
+    NOME = (By.ID, "fullName")
+    EMAIL = (By.ID, "email")
+    SENHA = (By.ID, "password")
+    CONFIRMAR_SENHA = (By.ID, "repeatPassword")
+
+    CHECK_TERMOS = (
+        By.ID,
+        "usage-terms"
     )
-)
 
-# Clica no link
-link_noticias.click()
+    BTN_ENVIAR = (
+        By.NAME,
+        "Enviar cadastro"
+    )
 
-# Espera URL mudar
-WebDriverWait(driver, 10).until(
-    EC.url_contains("agencia-de-noticias")
-)
+    def preencher_nome(self, nome):
+        self.send_keys(self.NOME, nome)
 
-# Mostra URL atual
-print(driver.current_url)
+    def preencher_email(self, email):
+        self.send_keys(self.EMAIL, email)
 
-# Verifica se navegou corretamente
-assert "agencia-de-noticias" in driver.current_url
+    def preencher_senha(self, senha):
+        self.send_keys(self.SENHA, senha)
 
-print("Teste passou!")
+    def confirmar_senha(self, senha):
+        self.send_keys(self.CONFIRMAR_SENHA, senha)
 
-# Fecha navegador
-driver.quit()
+    def aceitar_termos(self):
+        self.click(self.CHECK_TERMOS)
+
+    def enviar(self):
+        self.click(self.BTN_ENVIAR)
+
+    def cadastrar(
+        self,
+        nome,
+        email,
+        senha,
+        confirmar
+    ):
+        self.preencher_nome(nome)
+        self.preencher_email(email)
+        self.preencher_senha(senha)
+        self.confirmar_senha(confirmar)
+        self.aceitar_termos()
+        self.enviar()

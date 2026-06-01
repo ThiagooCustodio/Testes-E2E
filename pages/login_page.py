@@ -1,36 +1,36 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from pages.base_page import BasePage
 
-# Abre Firefox
-driver = webdriver.Firefox()
 
-# Acessa o site
-driver.get("https://www.estado.rs.gov.br/inicial")
+class LoginPage(BasePage):
 
-# Procura o link Notícias e salva na variável
-link_noticias = WebDriverWait(driver, 10).until(
-    EC.element_to_be_clickable(
-        (By.PARTIAL_LINK_TEXT, "Notícias")
+    EMAIL = (
+        By.ID,
+        "emailInput"
     )
-)
 
-# Clica no link
-link_noticias.click()
+    SENHA = (
+        By.ID,
+        "senhaInput"
+    )
 
-# Espera URL mudar
-WebDriverWait(driver, 10).until(
-    EC.url_contains("agencia-de-noticias")
-)
+    BTN_ENTRAR = (
+        By.NAME,
+        "Entrar"
+    )
 
-# Mostra URL atual
-print(driver.current_url)
+    def login(self, email, senha):
 
-# Verifica se navegou corretamente
-assert "agencia-de-noticias" in driver.current_url
+        self.send_keys(
+            self.EMAIL,
+            email
+        )
 
-print("Teste passou!")
+        self.send_keys(
+            self.SENHA,
+            senha
+        )
 
-# Fecha navegador
-driver.quit()
+        self.click(
+            self.BTN_ENTRAR
+        )
