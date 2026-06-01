@@ -24,3 +24,8 @@ class BasePage:
         return self.wait.until(
             EC.visibility_of_element_located(locator)
         ).text
+    
+    def find(self, locator):
+        return self.wait.until(
+            EC.presence_of_element_located(locator)
+    )
