@@ -4,18 +4,18 @@ from pages.base_page import BasePage
 
 class ProfilePage(BasePage):
 
-    MENU_PERFIL = (
+    AVATAR = (
         By.CSS_SELECTOR,
-        ".b3xqm ._voBV"
+        "span[data-type='avatar']"
     )
 
-    BTN_LOGOUT = (
-        By.ID,
-        "logout"
+    BTN_SAIR = (
+        By.XPATH,
+        "//p[contains(text(),'Sair')]"
     )
 
     def abrir_menu(self):
-        self.click(self.MENU_PERFIL)
+        self.click(self.AVATAR)
 
-    def logout_visivel(self):
-        return self.driver.find_element(*self.BTN_LOGOUT).is_displayed()
+    def sair_visivel(self):
+        return self.find(self.BTN_SAIR).is_displayed()

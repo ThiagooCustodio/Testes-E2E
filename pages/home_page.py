@@ -1,3 +1,5 @@
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 
@@ -23,8 +25,9 @@ class HomePage(BasePage):
         self.click(self.BTN_CADASTRO)
 
     def acessar_login(self):
-
-        botao = self.driver.find_element(*self.BTN_LOGIN)
+        botao = WebDriverWait(self.driver, 15).until(
+            EC.element_to_be_clickable(self.BTN_LOGIN)
+)
 
         self.driver.execute_script(
             "arguments[0].click();",

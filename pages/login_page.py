@@ -35,16 +35,14 @@ class LoginPage(BasePage):
 
     def login(self, email, senha):
         
-        print("Abrindo login por email")
         self.abrir_login_email()
 
-        print("Preenchendo email")
         self.send_keys(self.EMAIL, email)
 
-        print("Preenchendo senha")
         self.send_keys(self.SENHA, senha)
 
-        print("Clicando em Entrar")
         self.click(self.BTN_ENTRAR)
 
         print("Login enviado")
+
+    
