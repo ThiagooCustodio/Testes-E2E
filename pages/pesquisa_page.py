@@ -9,8 +9,9 @@ class PesquisaPage(BasePage):
         "js-h-search"
     )
 
-    def pesquisar(self, musica):
-        self.send_keys(
-            self.CAMPO_PESQUISA,
-            musica
-        )
+    def pesquisar(self, texto):
+
+        campo = self.find(self.CAMPO_PESQUISA)
+
+        campo.send_keys(texto)
+        campo.send_keys(Keys.ENTER)
