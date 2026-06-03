@@ -18,6 +18,20 @@ class HomePage(BasePage):
         "//button[.//span[contains(text(),'Entrar ou criar conta')]]"
     )
 
+    BTN_MAIS = (
+        By.CSS_SELECTOR,
+        ".u-hideTabletDown:nth-child(2) li:nth-child(3)"
+    )
+
+    LINK_ENVIAR_CIFRA = (
+        By.LINK_TEXT,
+        "Enviar cifra"
+    )
+
+    def __init__(self, driver):
+        super().__init__(driver)
+        self.wait = WebDriverWait(driver, 15)
+
     def abrir(self):
         self.driver.get(self.URL)
 
@@ -25,11 +39,17 @@ class HomePage(BasePage):
         self.click(self.BTN_CADASTRO)
 
     def acessar_login(self):
-        botao = WebDriverWait(self.driver, 15).until(
+        botao = self.wait.until(
             EC.element_to_be_clickable(self.BTN_LOGIN)
-)
-
-        self.driver.execute_script(
-            "arguments[0].click();",
-            botao
         )
+        self.driver.execute_script("arguments[0].click();", botao)
+
+    def abrir_menu_mais(self):
+        self.wait.until(
+            EC.element_to_be_clickable(self.BTN_MAIS)
+        ).click()
+
+    def ir_para_enviar_cifra(self):
+        self.wait.until(
+            EC.element_to_be_clickable(self.LINK_ENVIAR_CIFRA)
+        ).click()

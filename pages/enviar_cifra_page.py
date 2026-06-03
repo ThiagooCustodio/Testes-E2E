@@ -1,5 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
 from pages.base_page import BasePage
 
 
@@ -40,10 +42,13 @@ class EnviarCifraPage(BasePage):
         "//h5[contains(text(),'Não conseguimos identificar nenhum acorde ou tablatura')]"
     )
 
-    def abrir_envio(self):
+    def abrir_envio(self):    
+        wait = WebDriverWait(self.driver, 15)
 
-        self.click(self.BTN_MAIS)
-        self.click(self.BTN_ENVIAR)
+    # espera botão ou elemento da tela de envio aparecer
+        wait.until(
+        EC.element_to_be_clickable((By.XPATH, "SEU_XPATH_AQUI"))
+    )
 
     def selecionar_artista(self):
 
