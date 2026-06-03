@@ -3,35 +3,28 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
+def clicar_js(driver, locator):
+    elemento = WebDriverWait(driver, 20).until(
+        EC.presence_of_element_located(locator)
+    )
+
+    driver.execute_script(
+        "arguments[0].click();",
+        elemento
+    )
+
+
 def test_filtro_violao_geral(driver):
 
     driver.get("https://www.cifraclub.com.br/mais-acessadas/")
 
     # Seleciona filtro de instrumento
-    WebDriverWait(driver, 20).until(
-        EC.element_to_be_clickable(
-            (By.LINK_TEXT, "Todos os instrumentos")
-        )
-    ).click()
-
-    WebDriverWait(driver, 20).until(
-        EC.element_to_be_clickable(
-            (By.LINK_TEXT, "Violão / Guitarra")
-        )
-    ).click()
+    clicar_js(driver, (By.LINK_TEXT, "Todos os instrumentos"))
+    clicar_js(driver, (By.LINK_TEXT, "Violão / Guitarra"))
 
     # Seleciona filtro de período
-    WebDriverWait(driver, 20).until(
-        EC.element_to_be_clickable(
-            (By.LINK_TEXT, "Semanal")
-        )
-    ).click()
-
-    WebDriverWait(driver, 20).until(
-        EC.element_to_be_clickable(
-            (By.LINK_TEXT, "Geral")
-        )
-    ).click()
+    clicar_js(driver, (By.LINK_TEXT, "Semanal"))
+    clicar_js(driver, (By.LINK_TEXT, "Geral"))
 
     # Captura os filtros aplicados
     instrumento = WebDriverWait(driver, 20).until(
