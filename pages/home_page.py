@@ -24,8 +24,8 @@ class HomePage(BasePage):
     )
 
     LINK_ENVIAR_CIFRA = (
-        By.LINK_TEXT,
-        "Enviar cifra"
+        By.XPATH,
+        "//*[contains(text(),'Enviar cifra') or contains(text(),'Enviar Cifra')]"
     )
 
     def __init__(self, driver):
@@ -50,6 +50,7 @@ class HomePage(BasePage):
         ).click()
 
     def ir_para_enviar_cifra(self):
-        self.wait.until(
+        elemento = self.wait.until(
             EC.element_to_be_clickable(self.LINK_ENVIAR_CIFRA)
-        ).click()
+        )
+        self.driver.execute_script("arguments[0].click();", elemento)

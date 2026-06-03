@@ -27,18 +27,17 @@ def test_mensagem_erro(driver):
         EC.presence_of_element_located((By.CSS_SELECTOR, ".u-hideTabletDown"))
     )
 
-    WebDriverWait(driver, 15).until(
-        EC.invisibility_of_element_located((By.CLASS_NAME, "modalOverlay"))
-    )
-
-    mais = WebDriverWait(driver, 20).until(
-    EC.element_to_be_clickable((By.XPATH, "//span[contains(text(),'Mais')]/ancestor::li"))
-)
-    driver.execute_script("arguments[0].click();", mais)
+    try:
+        WebDriverWait(driver, 10).until(
+            EC.invisibility_of_element_located((By.CLASS_NAME, "modalOverlay"))
+        )
+    except:
+        pass
 
     home.abrir_menu_mais()
     home.ir_para_enviar_cifra()
 
+    enviar.selecionar_tipo_cifra()
     enviar.selecionar_artista()
     enviar.selecionar_musica()
     enviar.avancar_todas_etapas()
