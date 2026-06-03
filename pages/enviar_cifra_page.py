@@ -45,6 +45,7 @@ class EnviarCifraPage(BasePage):
             EC.element_to_be_clickable(self.CAMPO_BUSCA)
         )
         self._digitar_devagar(campo, "Legião Urba")
+        time.sleep(1)
         self._clicar_primeira_sugestao()
 
     def selecionar_musica(self):
@@ -54,14 +55,44 @@ class EnviarCifraPage(BasePage):
         self._digitar_devagar(campo, "Pais e Filhos")
         self._clicar_primeira_sugestao()
 
+    OPCAO_INTERMEDIARIA = (By.CSS_SELECTOR, "._3njHw > span")
+
     def avancar_todas_etapas(self):
+
+        # Primeiro avançar
+        self.wait.until(
+            EC.element_to_be_clickable(self.BTN_AVANCAR)
+        ).click()
+
+        time.sleep(2)
+
+        # Seleciona opção da próxima tela
+        self.wait.until(
+            EC.element_to_be_clickable(self.OPCAO_INTERMEDIARIA)
+        ).click()
+
+        time.sleep(2)
+
+        # Continua avançando
         for _ in range(3):
-            botao = self.wait.until(
-                EC.element_to_be_clickable(self.BTN_AVANCAR)
-            )
-            self.driver.execute_script("arguments[0].click();", botao)
+
             time.sleep(2)
-            
+
+            botao = self.wait.until(
+                EC.presence_of_element_located(self.BTN_AVANCAR)
+            )
+
+            self.driver.execute_script(
+                "arguments[0].scrollIntoView(true);",
+                botao
+            )
+
+            self.driver.execute_script(
+                "arguments[0].click();",
+                botao
+            )
+
+            time.sleep(2)
     def obter_mensagem_erro(self):
         return self.wait.until(
             EC.visibility_of_element_located(self.MSG_ERRO)

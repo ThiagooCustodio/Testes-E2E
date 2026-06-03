@@ -42,6 +42,8 @@ def test_login_sucesso(driver):
         "Qwaszx12345"
     )
 
+    time.sleep(3)
+
     avatar = WebDriverWait(driver, 30).until(
         EC.element_to_be_clickable(
             (By.CSS_SELECTOR, "span[data-type='avatar']")

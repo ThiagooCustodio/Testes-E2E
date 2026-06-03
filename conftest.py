@@ -1,9 +1,14 @@
-import pytest
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+import pytest
 
-
-@pytest.fixture(scope="session")
+@pytest.fixture
 def driver():
-    driver = webdriver.Firefox()
+
+    options = Options()
+
+    driver = webdriver.Firefox(options=options)
+
     yield driver
+
     driver.quit()

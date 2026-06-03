@@ -32,7 +32,10 @@ def test_mensagem_erro(driver):
             EC.invisibility_of_element_located((By.CLASS_NAME, "modalOverlay"))
         )
     except:
-        pass
+        driver.execute_script("""
+            var modal = document.querySelector('.modalOverlay');
+            if (modal) modal.remove();
+        """)
 
     home.abrir_menu_mais()
     home.ir_para_enviar_cifra()
@@ -43,5 +46,8 @@ def test_mensagem_erro(driver):
     enviar.avancar_todas_etapas()
 
     mensagem = enviar.obter_mensagem_erro()
+
+    print("Mensagem encontrada:")
+    print(repr(mensagem))
 
     assert "não conseguimos identificar nenhum acorde ou tablatura" in mensagem.lower()
