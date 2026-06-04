@@ -30,7 +30,7 @@ class EnviarCifraPage(BasePage):
         for letra in texto:
             campo.send_keys(letra)
             time.sleep(0.2)
-        time.sleep(3)  # aguarda dropdown carregar
+        time.sleep(5)  # aguarda dropdown carregar
 
     def _clicar_primeira_sugestao(self):
         campo = self.driver.find_element(*self.CAMPO_BUSCA)
@@ -45,7 +45,7 @@ class EnviarCifraPage(BasePage):
             EC.element_to_be_clickable(self.CAMPO_BUSCA)
         )
         self._digitar_devagar(campo, "Legião Urba")
-        time.sleep(1)
+        time.sleep(3)
         self._clicar_primeira_sugestao()
 
     def selecionar_musica(self):

@@ -94,7 +94,6 @@ Mensagem validada:
 Não conseguimos identificar nenhum acorde ou tablatura
 
 ## Como Executar
-
 ### Instalar dependências
 
 pip install -r requirements.txt
